@@ -1,0 +1,66 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-postgres
+{
+    "name": "Node.js Project Template",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+    // Features to add to the dev container. More info: https://containers.dev/features.
+    "features": {
+        "ghcr.io/devcontainers-contrib/features/nx-npm:1": {
+            "version": "latest"
+        }
+    },
+
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // This can be used to network with other containers or with the host.
+    // "forwardPorts": [3000, 5432],
+
+    // Add additional mounts to a container.
+    "mounts": [
+        {
+            "source": "${localWorkspaceFolderBasename}-node_modules",
+            "target": "${containerWorkspaceFolder}/node_modules",
+            "type": "volume"
+        }
+    ],
+    
+    // Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+    "shutdownAction": "stopCompose",
+
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "sudo chown node node_modules && npm install",
+
+    // Configure tool-specific properties.
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "editor.defaultFormatter": "esbenp.prettier-vscode",
+                "editor.formatOnSave": true,
+                "editor.formatOnPaste": false,
+                "[typescript]": {
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll": "explicit",
+                        "source.organizeImports": "explicit"
+                    }
+                }
+            },
+            "extensions": [
+                "christian-kohler.npm-intellisense",
+                "dbaeumer.vscode-eslint",
+                "donjayamanne.githistory",
+                "eamodio.gitlens",
+                "EditorConfig.EditorConfig",
+                "esbenp.prettier-vscode",
+                "firsttris.vscode-jest-runner",
+                "mhutchie.git-graph",
+                "nrwl.angular-console",
+                "oderwat.indent-rainbow"
+            ]
+        }
+    },
+
+    // Uncomment to connect as node instead. More info: https://aka.ms/dev-containers-non-root.
+    "remoteUser": "node"
+}
